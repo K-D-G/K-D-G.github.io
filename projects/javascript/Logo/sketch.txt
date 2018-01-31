@@ -1,0 +1,99 @@
+/*
+Code written by: KIERAN GRAYSHON
+Code written using a javascript frame work called p5.js.
+p5.js is a free open source javascript framework created by Lauren McCarthy
+and a community of collabraters, with help from the Processing Foundation and NYU ITP.
+Of which the aim is to inspire creative coding.
+p5.js: https://p5js.org/ 
+*/
+function show_image(){
+  this.x=168;
+  this.y=-74;
+  this.yspeed=3;
+  this.update=function(){
+    this.y=this.y+this.yspeed;
+    if(this.y>height){
+      this.y=-74;
+    }
+  }
+  this.show=function(){
+    image(img, this.x, this.y, 264, 74)
+  }
+}
+function drop() {
+  this.x = random(width);
+  this.y = random(-500, -50);
+  this.z = random(0, 20);
+  this.len = map(this.z, 0, 20, 10, 20);
+  this.yspeed = map(this.z, 0, 20, 1, 20);
+  this.fall = function() {
+    this.y = this.y + this.yspeed;
+    var grav = map(this.z, 0, 20, 0, 0.2);
+    this.yspeed = this.yspeed + grav;
+    if (this.y > height) {
+      this.y = random(-200, -100);
+      this.yspeed = map(this.z, 0, 20, 4, 10);
+    }
+  }
+  this.show = function() {
+    var thick = map(this.z, 0, 20, 1, 3);
+    strokeWeight(thick);
+    stroke(138, 43, 226);
+    line(this.x, this.y, this.x, this.y+this.len);
+  }
+}
+var img;
+var image_show;
+var pumpkin;
+var drops=[];
+var thunder;
+var rain;
+function preload(){
+  soundFormats('mp3');
+  thunder=loadSound('thunder_sound.mp3');
+  rain=loadSound('rain.mp3');
+  img=loadImage('text.png');
+  pumpkin=loadImage('pumpkin.jpg');
+}
+function setup(){
+	createCanvas(600, 600);
+	image_show=new show_image();
+	for(var i=0; i<500; i++){
+	  drops[i]=new drop();
+	}
+	rain.setVolume(1);
+	thunder.setVolume(0.6);
+	rain.play();
+	thunder.play();
+}
+function draw(){
+	background(0);
+	image_show.update();
+	image_show.show();
+	for(var i=0; i<drops.length; i++){
+	  drops[i].fall();
+	  drops[i].show();
+	}
+	var x=0;
+	var y=0;
+	for(var j=0; j<12; j++){
+	  image(pumpkin, x, y, 50, 50);
+	  y=y+50;
+	}
+	y=0;
+	for(var z=0; z<12; z++){
+	  image(pumpkin, 550, y, 50, 50);
+	  y=y+50;
+	}
+	y=0;
+	for(var b=0; b<12; b++){
+	  image(pumpkin, x, y, 50, 50);
+	  x=x+50;
+	}
+	y=550;
+	x=0;
+	for(var a=0; a<12; a++){
+	  image(pumpkin, x, y, 50, 50);
+	  x=x+50;
+	}
+}

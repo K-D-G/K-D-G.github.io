@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Favicon links so that it is supported for all webbrowsers-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="manifest" href="images/manifest.json">
+  <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <meta name="msapplication-config" content="images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" type="text/css" href="../../style.css"/>
+  <link rel="stylesheet" type="text/css" href="../../libraries/highlight/styles/default.css"/>
+  <title>Location Getter</title>
+  <meta charset="utf-8">
+  <meta name="keywords" content="Kieran Grayshon, programming, tutorials, programming tutorials, blog, html, go, css, python, javascript, c++">
+  <meta name="description" content="Kieran Grayshon's website">
+  <meta name="author" content="Kieran Grayshon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../libraries/highlight/highlight.pack.js"></script>
+  <script src="../../libraries/p5.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+    <div id="title">
+      <h1>Projects:Logo</h1>
+    </div>
+    <div id="navigation">
+      <button onclick="location.replace('../../index.html');">Home</button>
+      <button onclick="location.replace('../../about.html');">About</button>
+      <button onclick="location.replace('../../projects.html');">Projects</button>
+      <button onclick="location.replace('../../programming_tutorials.html');">Tutorials</button>
+      <button onclick="location.replace('../../contacts.html');">Contacts</button>
+    </div>
+    <div id="content">
+      <p>This project is about getting your location using python.<br>
+        To do this I will be using an api as well as a module called requests as well as JSON; which is part of the standard library</p>
+      <h2>The code</h2>
+      <pre><code class="javascript">
+        function show_image(){
+          this.x=168;
+          this.y=-74;
+          this.yspeed=3;
+          this.update=function(){
+            this.y=this.y+this.yspeed;
+            if(this.y>height){
+              this.y=-74;
+            }
+          }
+          this.show=function(){
+            image(img, this.x, this.y, 264, 74)
+          }
+        }
+        function drop() {
+          this.x = random(width);
+          this.y = random(-500, -50);
+          this.z = random(0, 20);
+          this.len = map(this.z, 0, 20, 10, 20);
+          this.yspeed = map(this.z, 0, 20, 1, 20);
+          this.fall = function() {
+            this.y = this.y + this.yspeed;
+            var grav = map(this.z, 0, 20, 0, 0.2);
+            this.yspeed = this.yspeed + grav;
+            if (this.y > height) {
+              this.y = random(-200, -100);
+              this.yspeed = map(this.z, 0, 20, 4, 10);
+            }
+          }
+          this.show = function() {
+            var thick = map(this.z, 0, 20, 1, 3);
+            strokeWeight(thick);
+            stroke(138, 43, 226);
+            line(this.x, this.y, this.x, this.y+this.len);
+          }
+        }
+        var img;
+        var image_show;
+        var pumpkin;
+        var drops=[];
+        var thunder;
+        var rain;
+        function preload(){
+          soundFormats('mp3');
+          thunder=loadSound('thunder_sound.mp3');
+          rain=loadSound('rain.mp3');
+          img=loadImage('text.png');
+          pumpkin=loadImage('pumpkin.jpg');
+        }
+        function setup(){
+        	createCanvas(600, 600);
+        	image_show=new show_image();
+        	for(var i=0; i<500; i++){
+        	  drops[i]=new drop();
+        	}
+        	rain.setVolume(1);
+        	thunder.setVolume(0.6);
+        	rain.play();
+        	thunder.play();
+        }
+        function draw(){
+        	background(0);
+        	image_show.update();
+        	image_show.show();
+        	for(var i=0; i<drops.length; i++){
+        	  drops[i].fall();
+        	  drops[i].show();
+        	}
+        	var x=0;
+        	var y=0;
+        	for(var j=0; j<12; j++){
+        	  image(pumpkin, x, y, 50, 50);
+        	  y=y+50;
+        	}
+        	y=0;
+        	for(var z=0; z<12; z++){
+        	  image(pumpkin, 550, y, 50, 50);
+        	  y=y+50;
+        	}
+        	y=0;
+        	for(var b=0; b<12; b++){
+        	  image(pumpkin, x, y, 50, 50);
+        	  x=x+50;
+        	}
+        	y=550;
+        	x=0;
+        	for(var a=0; a<12; a++){
+        	  image(pumpkin, x, y, 50, 50);
+        	  x=x+50;
+        	}
+        }
+      </code></pre>
+      <p></p>
+      <h2>Working example</h2>
+      <script>
+      function show_image(){
+        this.x=168;
+        this.y=-74;
+        this.yspeed=3;
+        this.update=function(){
+          this.y=this.y+this.yspeed;
+          if(this.y>height){
+            this.y=-74;
+          }
+        }
+        this.show=function(){
+          image(img, this.x, this.y, 264, 74)
+        }
+      }
+      function drop() {
+        this.x = random(width);
+        this.y = random(-500, -50);
+        this.z = random(0, 20);
+        this.len = map(this.z, 0, 20, 10, 20);
+        this.yspeed = map(this.z, 0, 20, 1, 20);
+        this.fall = function() {
+          this.y = this.y + this.yspeed;
+          var grav = map(this.z, 0, 20, 0, 0.2);
+          this.yspeed = this.yspeed + grav;
+          if (this.y > height) {
+            this.y = random(-200, -100);
+            this.yspeed = map(this.z, 0, 20, 4, 10);
+          }
+        }
+        this.show = function() {
+          var thick = map(this.z, 0, 20, 1, 3);
+          strokeWeight(thick);
+          stroke(138, 43, 226);
+          line(this.x, this.y, this.x, this.y+this.len);
+        }
+      }
+      var img;
+      var image_show;
+      var pumpkin;
+      var drops=[];
+      var thunder;
+      var rain;
+      function preload(){
+        soundFormats('mp3');
+        thunder=loadSound('thunder_sound.mp3');
+        rain=loadSound('rain.mp3');
+        img=loadImage('text.png');
+        pumpkin=loadImage('pumpkin.jpg');
+      }
+      function setup(){
+      	createCanvas(600, 600);
+      	image_show=new show_image();
+      	for(var i=0; i<500; i++){
+      	  drops[i]=new drop();
+      	}
+      	rain.setVolume(1);
+      	thunder.setVolume(0.6);
+      	rain.play();
+      	thunder.play();
+      }
+      function draw(){
+      	background(0);
+      	image_show.update();
+      	image_show.show();
+      	for(var i=0; i<drops.length; i++){
+      	  drops[i].fall();
+      	  drops[i].show();
+      	}
+      	var x=0;
+      	var y=0;
+      	for(var j=0; j<12; j++){
+      	  image(pumpkin, x, y, 50, 50);
+      	  y=y+50;
+      	}
+      	y=0;
+      	for(var z=0; z<12; z++){
+      	  image(pumpkin, 550, y, 50, 50);
+      	  y=y+50;
+      	}
+      	y=0;
+      	for(var b=0; b<12; b++){
+      	  image(pumpkin, x, y, 50, 50);
+      	  x=x+50;
+      	}
+      	y=550;
+      	x=0;
+      	for(var a=0; a<12; a++){
+      	  image(pumpkin, x, y, 50, 50);
+      	  x=x+50;
+      	}
+      }
+      </script>
+    </div>
+    <div id="footer">
+      <p>Kieran Grayshon. Written date:25/1/18</p>
+    </div>
+  </div>
+</body>
+</html>
