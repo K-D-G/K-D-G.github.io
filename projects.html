@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Projects</title>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <!--<style>body{background:url(images/background_image.png);background-repeat: no-repeat; background-size: 100% 700%;}</style>-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="libraries/p5.js"></script>
+  <script src="libraries/p5.dom.js"></script>
+  <script src="libraries/p5.sound.js"></script>
+  <script src="libraries/p5.speech.js"></script>
+  <script>
+    //document.getElementById('default').click();
+    function open_tab(evt, name){
+      var tab_content, tab_links;
+      tab_content=document.getElementsByClassName("tab_content");
+      for(var i=0; i<tab_content.length; i++){
+        tab_content[i].style.display="none";
+      }
+
+      tab_links=document.getElementsByClassName('tab_links');
+      for(var i=0; i<tab_links.length; i++){
+        tab_links[i].className=tab_links[i].className.replace('active', '');
+      }
+      document.getElementById(name).style.display="block";
+      evt.currentTarget.className+="active";
+    }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div id="title">
+      <h1>Projects</h1>
+    </div>
+    <div id="navigation">
+      <button onclick="location.replace('index.html');">Home</button>
+      <button onclick="location.replace('about.html');">About</button>
+      <button onclick="location.replace('projects.html');">Projects</button>
+      <button onclick="location.replace('programming_tutorials.html');">Tutorials</button>
+      <button onclick="location.replace('contacts.html');">Contacts</button>
+    </div>
+    <div class="tab">
+      <h2>Categories:</h2>
+      <!--Add the buttons here before everything else with class of tab_links-->
+      <button class="tab_links" onclick="open_tab(event, 'python')" id="default">Python</button>
+      <button class="tab_links" onclick="open_tab(event, 'javascript')">Javascript</button>
+      <button class="tab_links" onclick="open_tab(event, 'html')">HTML</button>
+      <button class="tab_links" onclick="open_tab(event, 'go')">Go</button>
+      <button class="tab_links" onclick="open_tab(event, 'c++')">C++</button>
+    </div>
+
+    <!--Content: add the content for the stuff-->
+    <div id="python" class="tab_content">
+      <h1>Python</h1><img src="images/pythonlogo.jpg" width=200 height=200>
+      <ul>
+        <a href="projects/python/location_getter.html"><li>Location getter</li></a>
+      </ul>
+    </div>
+    <div id="javascript" class="tab_content">
+      <h1>Javascript</h1><img src="images/javascript.png" width=200 height=200>
+      <ul>
+        <a href="projects/javascript/logo.html"><li>Logo</li></a>
+      </ul>
+    </div>
+    <div id="html" class="tab_content">
+      <h1>HTML (Hyper Text Markup Language)</h1><img src="images/html.png" width=200 height=200>
+      <ul>
+        <a href="index.html"><li>This</li></a>
+      </ul>
+    </div>
+    <div id="go" class="tab_content">
+      <h1>Go</h1><img src="images/golang.jpg" width=200 height=200>
+      <ul>
+        <a href="projects/go/go_test.html"><li>Go test</li></a>
+      </ul>
+    </div>
+    <div id="c++" class="tab_content">
+      <h1>C++</h1><img src="images/c++.png" width=200 height=200>
+      <ul>
+        <a href="tutorials/c++/xmas_tree.html"><li>Christmas tree</li></a>
+      </ul>
+    </div>
+    <div id="footer">
+      <p>Kieran Grayshon. Written date:25/1/18</p>
+    </div>
+    <script>document.getElementById('default').click();</script>
+</div>
+</body>
+</html>
