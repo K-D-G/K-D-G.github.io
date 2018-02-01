@@ -11,6 +11,7 @@
   <meta name="msapplication-config" content="images/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
   <script src="libraries/p5.js"></script>
+  <script src="libraries/p5.dom.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css"/>
   <title>Page not found</title>
 </head>
@@ -86,8 +87,8 @@
       var c;
 
       function setup(){
-        var c=createCanvas(600, 600);
-        c.position(windowWidth/2, windowHeight/2)
+        c=createCanvas(600, 600);
+        c.position((windowWidth/2)-(width/2), (windowHeight/2)-(height/2));
         s=new Snake();
         frameRate(10);
         pickLocation();
