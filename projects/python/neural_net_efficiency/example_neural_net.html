@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Favicon links so that it is supported for all webbrowsers-->
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../images/favicon-16x16.png">
+  <link rel="manifest" href="../../../images/manifest.json">
+  <link rel="mask-icon" href="../../../images/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="../../../images/favicon.ico">
+  <meta name="msapplication-config" content="../../../images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <title>Projects</title>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <!--<style>body{background:url(images/background_image.png);background-repeat: no-repeat; background-size: 100% 700%;}</style>-->
+  <meta charset="utf-8">
+  <meta name="keywords" content="Kieran Grayshon, programming, tutorials, programming tutorials, blog, html, go, css, python, javascript, c++">
+  <meta name="description" content="Kieran Grayshon's website">
+  <meta name="author" content="Kieran Grayshon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../libraries/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+    <div id="title">
+      <h1>Code for example tensorflow neural network</h1>
+    </div>
+    <div id="content">
+      <p>The code here is for the paper about neural network efficiency</p>
+      <pre><code class="python">
+        import tensorflow as tf
+        from tensorflow.examples.tutorials.mnist import input_data
+        '''
+        Summary:
+
+        FEED FORWARD NEURAL NETWORK
+        input->weight->hidden layer 1 (activation function)->weights->
+        hidden layer 2 (activation function)->weights->output layer
+
+        compare output to intended output->cost or loss function (cross entropy)
+        optimisation function (optimiser)>minimise cost (AdamOptimiser, SGD, AdaGrad)
+
+        backpropagation
+        feed forward+backprop=epoch
+
+        '''
+
+        #one_hot means that one component will be on useful for multi class classification
+        mnist=input_data.read_data_sets("/tmp/data/", one_hot=True)
+        '''
+        So an example output may be (because there is ten classes, 0-9, the output has ten numbers where one is on
+        Number, then the array identification
+        0=[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        1=[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+        2=[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+        3=[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+        '''
+
+        #Amount of nodes for the hidden layers (don't have to be identical)
+        n_nodes_hl1=500
+        n_nodes_hl2=500
+        n_nodes_hl3=500
+
+        #How many possible classes/outputs are possible
+        n_classes=10
+        #How many features go through the network at a certain time
+        batch_size=100
+
+        #heightxwidth so for example x doesn't have a height so None however its width is 784 because each of the images are 28x28 therefore 784
+        #Second value doesn't have to be their
+        #x is data y is label of the data
+        x=tf.placeholder('float', [None, 784])
+        y=tf.placeholder('float')
+
+        def neural_network_model(data):
+            #Hidden layer 1 has 2 things in the dictionary. 1 is weights which is a tf variable which is a tf random_normal of the 784 and the number of nodes in the hidden layer
+            #Biases are the things added after the weights so that even if the multiplication is 0 some neurons will still fire
+            hidden_1_layer={'weights':tf.Variable(tf.random_normal([784, n_nodes_hl1])), 'biases':tf.Variable(tf.random_normal([n_nodes_hl1]))}
+            hidden_2_layer={'weights':tf.Variable(tf.random_normal([n_nodes_hl1, n_nodes_hl2])), 'biases':tf.Variable(tf.random_normal([n_nodes_hl2]))}
+            hidden_3_layer={'weights':tf.Variable(tf.random_normal([n_nodes_hl2, n_nodes_hl3])), 'biases':tf.Variable(tf.random_normal([n_nodes_hl3]))}
+            output_layer={'weights':tf.Variable(tf.random_normal([n_nodes_hl3, n_classes])), 'biases':tf.Variable(tf.random_normal([n_classes]))}
+
+            #(input_data*weights)+biases for the thing below (l stands for layer)
+            #tf.matmul means matrix multiplication
+            l1=tf.add(tf.matmul(data, hidden_1_layer['weights']), hidden_1_layer['biases'])
+            #Activation function/threshold function
+            l1=tf.nn.relu(l1)
+
+            l2=tf.add(tf.matmul(l1, hidden_2_layer['weights']), hidden_2_layer['biases'])
+            #Activation function/threshold function
+            l2=tf.nn.relu(l2)
+
+            l3=tf.add(tf.matmul(l2, hidden_3_layer['weights']), hidden_3_layer['biases'])
+            #Activation function/threshold function
+            l3=tf.nn.relu(l3)
+
+            output=tf.matmul(l3, output_layer['weights'])+output_layer['biases']
+
+            return output
+
+        def train_neural_network(x):
+            #Prediction of what the output will be
+            prediction=neural_network_model(x)
+            #Define what the cost value will be using tensorflow (cross entropy)
+            cost=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=y))
+            #Optimiser function to minimise the cost
+            optimiser=tf.train.AdamOptimizer().minimize(cost)
+
+            #How many epochs are needed (how many cycles: feed forward+backprop)
+            hm_epochs=10
+
+            #Start the session (training the network)
+            with tf.Session() as sess:
+                #Should use tf.global_variables_initializer instead of initialize_all_variables as tensorflow are deprecating the function name
+                sess.run(tf.initialize_all_variables())
+
+                for epoch in range(hm_epochs):
+                    epoch_loss=0 #Basically the cost for the epoch
+                    for _ in range(int(mnist.train.num_examples/batch_size)):
+                        #In a real situation this function would have to be written manually
+                        epoch_x, epoch_y=mnist.train.next_batch(batch_size)
+                        #Run the optimiser with cost
+                        _, c=sess.run([optimiser, cost], feed_dict={x:epoch_x, y:epoch_y})
+                        epoch_loss+=c
+                    #Printing the status of the neural network
+                    print('Epoch: {} completed out of {} loss:{}'.format(epoch, hm_epochs, epoch_loss))
+
+                #Comparing the prediction to the actual thing
+                correct=tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
+                #Checking the accuracy tf.cast changes correct to a float
+                accuracy=tf.reduce_mean(tf.cast(correct, 'float'))
+                print('Accuracy:', accuracy.eval({x:mnist.test.images, y:mnist.test.labels}))
+
+        train_neural_network(x)
+
+
+      </code></pre>
+    </div>
+    <div id="footer">
+      <p>Kieran Grayshon. Written date:25/1/18</p>
+    </div>
+  </div>
+</body>
+</html>
