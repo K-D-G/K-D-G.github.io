@@ -10,6 +10,7 @@
   <link rel="shortcut icon" href="images/favicon.ico">
   <meta name="msapplication-config" content="images/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+  <style>.class p{margin: auto;text-align: center;background-color: #70aeff;color: white;  background-color: white;width: 800px;margin-left: auto;margin-right: auto;}</style>
   <script src="libraries/p5.js"></script>
   <script src="libraries/p5.dom.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,7 +22,7 @@
       <h1>The page you have requested doesn't exist</h1>
     </div>
     <div id="content">
-      <p>Snake game</p>
+      <p>Snake game: Credit to <a href="http://shiffman.net">Dan Shiffman</a> for help with some of the code in his <a href="https://p5js.org/">p5.js</a> tutorials. You can get the file here <a href="snake.html" download>here</a></p>
       <script>
       function Snake() {
         this.x=0;
@@ -51,7 +52,6 @@
             var pos=this.tail[i];
             var d=dist(this.x, this.y, pos.x, pos.y);
             if(d<1){
-              console.log('starting over');
               this.total=0;
               this.tail=[];
             }
@@ -91,28 +91,27 @@
         c.position((windowWidth/2)-(width/2), (windowHeight/2)-(height/2));
         s=new Snake();
         frameRate(10);
-        pickLocation();
+        pick_location();
+        score=createP('Score').addClass('text');
       }
 
-      function pickLocation(){
+      function pick_location(){
         var cols=floor(width/scl);
         var rows=floor(height/scl);
         food=createVector(floor(random(cols)), floor(random(rows)));
         food.mult(scl);
       }
-      function mousePressed(){
-        s.total++;
-      }
       function draw() {
         background(0);
         if(s.eat(food)){
-          pickLocation();
+          pick_location();
         }
         s.death();
         s.update();
         s.show();
         fill(255, 0, 100);
         rect(food.x, food.y, scl, scl);
+        score.html('Score:'+s.total);
       }
 
       function keyPressed(){
