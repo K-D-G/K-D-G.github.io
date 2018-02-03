@@ -3,9 +3,29 @@
 <head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.js"></script>
-  <style>body{background-color: yellow;}</style>
+  <style>
+    #container{
+      width: 800px;
+      background-color: white;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      background-color: #70aeff;
+      color: white;
+    }
+    body{
+      font-family: "Verdana", Verdana, serif;
+      background: url(images/background_image.png);
+      background-repeat: no-repeat;
+      background-size: 100% 1000%;
+    }
+  </style>
 </head>
 <body>
+  <div id="container">
+  <h1>Snake Game</h1>
+  <p>Snake game: Credit to <a href="http://shiffman.net">Dan Shiffman</a> for help with some of the code in his <a href="https://p5js.org/">p5.js</a> tutorials.</p>
+  <p id="score">Length:</p>
   <script>
   function Snake() {
     this.x=0;
@@ -68,15 +88,16 @@
   var scl=20;
   var food;
   var c;
+  var score;
 
   function setup(){
     c=createCanvas(600, 600);
-    c.position((windowWidth/2)-(width/2), (windowHeight/2)-(height/2));
+    c.position((windowWidth/2)-(width/2), (windowHeight/2)-(height/2)+25);
     s=new Snake();
     frameRate(10);
     pick_location();
-    score=createP('Score').addClass('text');
-    score.position(windowWidth/2, 0);
+    score=select('#score');//createP('Score').addClass('text');
+    //score.position(windowWidth/2, 0);
   }
 
   function pick_location(){
@@ -95,7 +116,7 @@
     s.show();
     fill(255, 0, 100);
     rect(food.x, food.y, scl, scl);
-    score.html('Score:'+s.total);
+    score.html('Length:'+s.total);
   }
 
   function keyPressed(){
@@ -110,5 +131,6 @@
     }
   }
   </script>
+  </div>
 </body>
 </html>
