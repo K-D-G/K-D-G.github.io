@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <title>Contact</title>
+</head>
+<body>
+<div id="container">
+  <div id="title">
+    <img src="images/logo.png" id="logo">
+  </div>
+  <div id="menu_bar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+    </ul>
+  </div>
+  <div id="main">
+    <p class="text">You can contact us on many platforms for a starting point check the following links</p>
+    <div id="links">
+      <center>
+        <ul>
+          <li><a href="mailto:15grayshon.k@woodkirkacademy.com?Subject=I%20have%20a%20conundrum" target="_top"><img src="images/outlook.png"></a></li>
+          <li><a href="not_online.html"><img src="images/instagram.png"></a></li>
+          <li><a href="not_online.html"><img src="images/twitter.png"></a></li>
+        </ul>
+      </center>
+    </div>
+  </div>
+  <div id="footer">
+    <p>A <a href="https://k-d-g.github.io/">Kieran Grayshon</a> production 2018</p>
+  </div>
+  <script>
+    document.getElementById('logo').setAttribute("width", (1110/2));
+    document.getElementById('logo').setAttribute("height", (586/2));
+
+    for(var i=1; i<document.getElementsByTagName('img').length; i++){
+      document.getElementsByTagName('img')[i].setAttribute("width", 100);
+      document.getElementsByTagName('img')[i].setAttribute("height", 100);
+    }
+  </script>
+</div>
+</body>
+</html>

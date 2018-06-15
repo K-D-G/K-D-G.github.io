@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<meta charset="?utf-8?">
+</head>
+<body>
+<div id="?container?">
+<div id="?title?">
+<h1>Sverige</h1>
+</div>
+<div id="?menu_bar?">
+<ul>
+<li><a href="UrlBlockedError.aspx" target="_blank" rel="noopener noreferrer">Home</a>
+</li><li><a href="UrlBlockedError.aspx" target="_blank" rel="noopener noreferrer">Products</a>
+</li><li><a href="UrlBlockedError.aspx" target="_blank" rel="noopener noreferrer">Contact us</a>
+</li></ul>
+</div>
+<div id="?main?">
+<p>Welcome to our company. The name is: Sverige which is Swedish for Sweden</p>
+</div>
+<div id="?footer?">
+<p><a href="UrlBlockedError.aspx" target="_blank" rel="noopener noreferrer">A Kieran Grayshon</a> production &copy; 2018
+</p>
+</div>
+</div>
+</body>
+</html>

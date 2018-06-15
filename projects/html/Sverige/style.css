@@ -1,0 +1,89 @@
+/* CSS stylesheet for the Sverige website: A Kieran Grayshon Production */
+
+/* Basic CSS layout for all of the standard elements used */
+.text{
+  text-align: center;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Individual sections */
+#container{
+  background-color: white;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#title{
+  background-color: white;
+}
+
+#menu_bar{
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#menu_bar ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ffbb35;
+}
+
+#menu_bar li{
+  float: left;
+}
+
+#menu_bar li a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#menu_bar li a:hover{
+  background: white;
+  color: #ffbb35;
+}
+
+#links ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: white;
+}
+
+#links li a{
+  display: block;
+  background-color: white;
+  padding: 8px 16px;
+  width: 100px;
+  height: 100px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#links li a:hover{
+  background-color: #ffbb35;
+}
+
+#footer{
+  height: 50px;
+  color: white;
+  background-color: #ffbb35;
+  text-align: center;
+  padding: 10px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
