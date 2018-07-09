@@ -1,0 +1,53 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+  <meta charset="utf-8">
+  <meta name="keywords" content="Sweden">
+  <meta name="description" content="Website Sverige">
+  <meta name="author" content="Kieran">
+  <meta name="viewport" content="width-device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <link rel="shortcut icon" href="images/logo.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/addons/p5.dom.js"></script>
+  <title>Sverige</title>
+</head>
+<body>
+<div id="container">
+  <div id="title">
+    <img src="images/logo.png" id="logo">
+  </div>
+  <div id="menu_bar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+    </ul>
+  </div>
+  <div id="main">
+    <script>
+      var mould;
+      var canvas;
+      function setup(){
+        canvas=createCanvas(400, 400, WEBGL);
+        canvas.position(window.innerWidth/2-200, window.innerHeight/2-141);
+        canvas.parent('main');
+        mould=loadModel('https://k-d-g.github.io/projects/html/Sverige/Chocolate%20bar%20model.stl');
+      }
+
+      function draw(){
+        background(0);
+        model(mould);
+      }
+    </script>
+  </div>
+  <!--<div id="footer">
+    <p class="text">A <a href="https://k-d-g.github.io/">Kieran Grayshon</a> production 2018</p>
+  </div>-->
+  <script>
+    document.getElementById('logo').setAttribute("width", (1110/2));
+    document.getElementById('logo').setAttribute("height", (586/2));
+  </script>
+</div>
+</body>
+</html>
