@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Favicon links so that it is supported for all webbrowsers-->
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../images/favicon-16x16.png">
+  <link rel="manifest" href="../../../images/manifest.json">
+  <link rel="mask-icon" href="../../../images/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="../../../images/favicon.ico">
+  <meta name="msapplication-config" content="../../../images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" type="text/css" href="../../../style.css"/>
+  <link rel="stylesheet" type="text/css" href="../../../libraries/highlight/styles/default.css"/>
+  <title>Logo</title>
+  <meta charset="utf-8">
+  <meta name="keywords" content="Kieran Grayshon, programming, tutorials, programming tutorials, blog, html, go, css, python, javascript, c++">
+  <meta name="description" content="Kieran Grayshon's website">
+  <meta name="author" content="Kieran Grayshon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../../libraries/highlight/highlight.pack.js"></script>
+  <script src="../../../libraries/p5.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+    <div id="title">
+      <h1>Projects:Christmas 2018 project</h1>
+    </div>
+    <div id="content">
+      <p>This project is about making a light up Christmas Tree<br>
+        To do this I used an Arduino and the FastLED library</p>
+      <h2>The code</h2>
+      <pre><code>
+        #include <FastLED.h>
+        #define num_leds 25
+        #define led_pin 2
+
+        CRGB led[num_leds];
+
+        void setup() {
+          FastLED.addLeds<NEOPIXEL, led_pin>(led, num_leds);
+          for(int i=0; i<num_leds; i++){
+            led[i]=CRGB(0, 0, 255);
+          }
+          FastLED.show();
+        }
+
+        void red(){
+           for(int i=0; i<num_leds; i++){
+            led[i]=CRGB(255, 0, 0);
+          }
+          FastLED.show();
+          delay(1000);
+        }
+
+        void green(){
+           for(int i=0; i<num_leds; i++){
+            led[i]=CRGB(0, 255, 0);
+          }
+          FastLED.show();
+          delay(1000);
+        }
+
+        void blue(){
+           for(int i=0; i<num_leds; i++){
+            led[i]=CRGB(0, 0, 255);
+          }
+          FastLED.show();
+          delay(1000);
+        }
+
+        void loop() {
+          red();
+          green();
+          blue();
+        }
+      </code></pre>
+      <p>The Christmas tree:</p>
+      <video src="https://k-d-g.github.io/images/IMG_1002.MOV" autoplay>
+      </video>
+    </div>
+    <div id="footer">
+      <p>Kieran Grayshon. Written date:25/1/18</p>
+    </div>
+  </div>
+</body>
+</html>
