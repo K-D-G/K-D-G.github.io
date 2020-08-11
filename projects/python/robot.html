@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Favicon links so that it is supported for all webbrowsers-->
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../images/favicon-16x16.png">
+  <link rel="manifest" href="../../../images/manifest.json">
+  <link rel="mask-icon" href="../../../images/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="../../../images/favicon.ico">
+  <meta name="msapplication-config" content="../../../images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <title>Projects</title>
+  <link rel="stylesheet" type="text/css" href="../../../style.css"/>
+  <link rel="stylesheet" type="text/css" href="../../../libraries/highlight/styles/default.css"/>
+  <!--<style>body{background:url(images/background_image.png);background-repeat: no-repeat; background-size: 100% 700%;}</style>-->
+  <meta charset="utf-8">
+  <meta name="keywords" content="Kieran Grayshon, programming, tutorials, programming tutorials, blog, html, go, css, python, javascript, c++">
+  <meta name="description" content="Kieran Grayshon's website">
+  <meta name="author" content="Kieran Grayshon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../../libraries/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+    <div id="title">
+      <h1>Robot for school open evening</h1>
+    </div>
+    <div id="content">
+      <p>I wrote this for my schools open evening. It has a front end written in python and uses web technologies to interface with the server which contains the chatbot</p>
+    </div>
+    <pre><code class="python">
+      #Import the graphics library so that we can draw the robot
+      #Import urllib so that we can send a request to the server and encode the phrase with encoding
+      #Import the JSON library so that we can read the JSON
+      #Import platform so we can find out what OS is running and if it is windows we import the speech library
+      from dependencies.graphics import*
+      import urllib.request
+      from urllib.parse import quote_plus
+      import json
+      import platform
+      operating_system=platform.system()
+      if operating_system=='Windows':
+          import dependencies.speech as speech
+
+      #Define a class which will draw the robot and communicate with the server
+      class Robot:
+          def __init__(self, window):
+              #Store the window in a variable so that we can easily access it in the class
+              self.window=window
+              #Set the background colour before we setup everything
+              self.window.setBackground('black')
+              #Define the User-Agent here so that we don't keep defining it all of the time
+              self.headers={'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'}
+
+          def get_response(self):
+              #Define this method so that we can communicate with the server and get a response
+              try:
+                  #Define the URL we are using with all of the parameters so we can make the request
+                  #Format the URL with the user input from the text box; this is encoded with URL encoding using quote_plus
+                  url='http://chatbot-thing.herokuapp.com/process/{}'.format(quote_plus(self.input_box.getText()))
+                  #Create a request passing in a User-Agent so that Flask doesn't think we are a robot
+                  request=urllib.request.Request(url, headers=self.headers)
+                  #Get a response from the server
+                  response=urllib.request.urlopen(request)
+                  #Read the bytes of the response
+                  data=response.read()
+                  #Decode the bytes that uses utf-8 encoding
+                  data=data.decode('utf-8')
+                  #Use the JSON library to convert the JSON into a dictionary
+                  data=json.loads(data)
+                  #Give the response to the user by changing the response text on the screen
+                  self.response_box.setText(data['robot_response'])
+
+                  #If the operating system allows it say the response through the speakers
+                  if operating_system=='Windows':
+                      speech.say(answer)
+              except Exception as e:
+                  #Print any errors both to the screen and console
+                  print('Error')
+                  print(str(e))
+                  self.response_box.setText('Error:{}'.format(str(e)))
+
+          def draw(self):
+              #Define this method for drawing the robot
+
+              #Create a text object which will show the response from the server on screen
+              self.response_box=Text(Point(250, 50), "Robot Response")
+              self.response_box.setSize(20)
+              self.response_box.setTextColor('white')
+              self.response_box.setFace('arial')
+
+              #Create both of the ears as white rectangles at the side of where the face will be
+              self.ear=Rectangle(Point(50, 175), Point(100, 275))
+              self.ear.setFill('white')
+
+              self.ear2=Rectangle(Point(400, 175), Point(450, 275))
+              self.ear2.setFill('white')
+
+              #Create the face as a white rectangle in the centre of the screen
+              self.face=Rectangle(Point(100, 100), Point(400, 400))
+              self.face.setFill('white')
+
+              #Create both of the eyes as green circles
+              self.eye=Circle(Point(100+75, 100+75), 30)
+              self.eye.setFill('green')
+              self.eye.setOutline('green')
+
+              self.eye2=Circle(Point(400-75, 100+75), 30)
+              self.eye2.setFill('green')
+              self.eye2.setOutline('green')
+
+              #Create the nose as a triangle which is blue
+              self.nose=Polygon([Point(250, 225), Point(200, 275), Point(300, 275)])
+              self.nose.setFill('blue')
+              self.nose.setOutline('blue')
+
+              #Create the mouth using a series of rectangles that have a red outline
+
+              self.mouth=[Rectangle(Point(100+45, 325), Point(100+45+52.5, 387.5)), Rectangle(Point(100+45+52.5, 325), Point(100+45+(52.5*2), 387.5)), Rectangle(Point(100+45+(52.5*2), 325), Point(100+45+(52.5*3), 387.5)), Rectangle(Point(100+45+(52.5*3), 325), Point(100+45+(52.5*4), 387.5))]
+              for i in range(len(self.mouth)):
+                  self.mouth[i].setFill('white')
+                  self.mouth[i].setOutline('red')
+
+              #Draw each of the components to the screen
+              self.ear.draw(self.window)
+              self.ear2.draw(self.window)
+              self.face.draw(self.window)
+              self.eye.draw(self.window)
+              self.eye2.draw(self.window)
+              self.nose.draw(self.window)
+              for i in range(len(self.mouth)):
+                  self.mouth[i].draw(self.window)
+
+              #Setup and draw the input box with some text in it to tell the user what to do
+              self.input_box=Entry(Point(250, 435), int(480/12))
+              self.input_box.setFill('white')
+              self.input_box.setFace('arial')
+              self.input_box.draw(self.window)
+              self.input_box.setText("Write a response to the robot here then click his face")
+
+              #Draw the response text with some default text
+              self.response_box.draw(self.window)
+              self.response_box.setText('RESPONSE')
+
+              #Waits for the the user to click the robot before completing the request
+              while True:
+                  mouse_point=self.window.checkMouse()
+                  if mouse_point!=None:
+                      if mouse_point.getX()<=400 and mouse_point.getX()>=100 and mouse_point.getY()<=400 and mouse_point.getY()>=100:
+                          self.get_response()
+              #These lines of code are here so that the graphics.py library doesn't throw errors
+              self.window.getMouse()
+              self.window.close()
+
+      def main():
+          #We skip the error because there is nothing wrong with the script it is just the way we
+          #stop the script that annoys python. Therefore we stop it from raising the error
+          try:
+              #Create a window that we can draw on
+              win=GraphWin("Robot", 500, 500)
+              #Create an instance of the Robot class so we can get everything running
+              robot=Robot(win)
+              #Draw the robot and setup user input
+              robot.draw()
+          except Exception as e:
+              pass
+
+      #Run the script making sure we are not being imported
+      if __name__=='__main__':
+          main()
+
+      </code></pre>
+    <div id="footer">
+      <p>Kieran Grayshon. Written date:15/9/19</p>
+    </div>
+  </div>
