@@ -66,8 +66,9 @@ function draw(){
   fill(249, 249, 240);
   textSize(20);
   textFont('Courier');
-  textAlign(LEFT, TOP);
-  text(message.substring(0, current_character), width * 0.2, height * 0.2);
+  //textAlign(LEFT, TOP);
+  textAlign(CENTER);
+  text(message.substring(0, current_character), width * 0.5, height * 0.2);
   current_character += 0.15;
 
   push();
