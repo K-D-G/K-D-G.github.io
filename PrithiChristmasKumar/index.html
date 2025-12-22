@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="user-scalable=yes,initial-scale=1,maximum-scale=0.45,minimum-scale=0.2,width=device-width">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/p5.sound@0.2.0/dist/p5.sound.min.js"></script> 
+        <script src="js/utils.js"></script>
+        <script src="js/flake.js"></script>
+        <script src="js/flower.js"></script>
+        <script src="js/background.js"></script>
+        <script src="js/card_body.js"></script>
+        <script src="js/index.js"></script>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+        <link rel="icon" type="image/gif" href="assets/card_front.gif">
+        <title>Prithi ChristmasKumar</title>
+    </head>
+    <body>
+        <audio id="christmas_song" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="assets/baby-its-cold-outside.mp3" type="audio/mpeg">
+        </audio>
+        <div id="card">
+            <div id="card-inside">
+                <div class="wrap">
+                    <div id="card-body"></div>
+                </div>
+            </div>
+            <div id="card-front">
+                <div class="wrap">
+                    <img src="assets/card_front.gif" style="width: 100%; height: 100%; object-fit: fill;">
+                </div>
+                <button id="open">&gt;</button>
+                <button id="close">&lt;</button>
+            </div>
+        </div>
+    </body>
+</html>
