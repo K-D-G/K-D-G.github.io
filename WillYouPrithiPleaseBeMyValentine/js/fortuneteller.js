@@ -1,7 +1,7 @@
 class FortuneTeller{
     constructor(){
-        this.teller = loadImage('assets/teller.png');
-        this.font = loadFont('assets/banner_font.ttf');
+        this.teller = loadImage('assets/teller_image.png');
+        this.font = loadFont('assets/bannerfont.ttf');
         this.pointer = loadImage('assets/pointer.png');
         this.button_font = loadFont('assets/Vogue.ttf');
 
