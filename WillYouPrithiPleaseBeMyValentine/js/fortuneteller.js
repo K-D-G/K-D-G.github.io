@@ -100,7 +100,7 @@ class FortuneTeller{
 
     pressed(){
         this.bulb_colour = [98, 93, 255];
-        this.speed = 0.0001;
+        this.speed = 0.0005;
 
     }
 };
