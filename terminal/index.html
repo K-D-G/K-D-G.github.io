@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Login</title>
+
+    <link rel="stylesheet" href="/Terminal/style.css" id="login_css">
+    <script src="/Terminal/constants.js" defer></script>
+    <script src="/Terminal/index.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+        integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.13/p5.min.js"
+        integrity="sha512-b8J5nFYtXUiiPLfPrmY7MazI+vpftbpZyQX563xMG1kZJPtD9qmkTz68NQshhVHeygVUn8gJnqVypVspHlBDjA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div class="background-grid"></div>
+
+    <div class="login-container">
+
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn red"></span>
+                <span class="btn yellow"></span>
+                <span class="btn green"></span>
+            </div>
+
+            <span class="terminal-title">secure_terminal.exe</span>
+        </div>
+
+        <div class="login-content">
+
+            <div class="logo">
+                &gt;_
+            </div>
+
+            <h1>ACCESS TERMINAL</h1>
+
+            <p class="subtitle">
+                <span class="prompt">$</span> authenticate_user()
+            </p>
+
+            <form id="login_form" method="POST">
+
+                <div class="input-group">
+                    <label for="username">
+                        USERNAME
+                    </label>
+
+                    <div class="input-wrapper">
+                        <span class="input-prefix">&gt;</span>
+                        <input type="text" id="username" name="username" placeholder="enter_username"
+                            autocomplete="username" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">
+                        PASSWORD
+                    </label>
+
+                    <div class="input-wrapper">
+                        <span class="input-prefix">&gt;</span>
+                        <input type="password" id="password" name="password" placeholder="enter_password"
+                            autocomplete="current-password" required>
+                    </div>
+                </div>
+
+                <button type="submit">
+                    <span>[</span> AUTHENTICATE <span>]</span>
+                </button>
+
+            </form>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                SYSTEM ONLINE
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark overlay -->
+    <div class="modal-overlay" id="modal">
+
+        <!-- Popup -->
+        <div class="popup">
+
+            <!-- Header -->
+            <div class="popup-header">
+
+                <div class="header-title">
+
+                    <div class="warning-icon">
+                        !
+                    </div>
+
+                    <span>SYSTEM MESSAGE</span>
+
+                </div>
+
+                <button class="close-button" id="cross_button">
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- Content -->
+            <div class="popup-content">
+
+                <div class="warning-section">
+
+                    <div class="large-warning">
+                        !
+                    </div>
+
+                    <div class="message">
+
+                        <h1>INCORRECT USERNAME OR PASSWORD</h1>
+
+                        <div class="separator"></div>
+
+                        <p>
+                            Please check your username and password and try again.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="popup-actions">
+                    <button class="confirm-button" id="confirm_button">
+                        CONFIRM
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
